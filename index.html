@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 600px;
+        height: 600px;
+        background-color: #e0c1c6;
+        border-radius: 25px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .display {
+        width: 90%;
+        height: 20%;
+        background-color: #efe1e1;
+        padding-top: 10px;
+        padding: 10px 20px 10px 20px;
+        border-radius: 15px;
+        font-size: 48px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        font-family: arial;
+        color: #464242;
+      }
+
+      .btn-container {
+        width: 90%;
+        height: 65%;
+        border-radius: 25px;
+        background-color: #efe1e1;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        padding: 25px 10px 10px 45px;
+      }
+      .btn {
+        width: 80px;
+        height: 50px;
+        background-color: #e0c1c6;
+        border-radius: 15px;
+        border-color: transparent;
+        font-weight: 500;
+        font-size: 24px;
+        color: #464242;
+        font-family: Arial;
+      }
+
+      .btn:hover {
+        opacity: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="index.js"></script>
+  </body>
+</html>
