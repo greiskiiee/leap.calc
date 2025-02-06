@@ -6,7 +6,6 @@ body.appendChild(container);
 
 const display = document.createElement("input");
 display.className = "display";
-display.innerText = "0";
 container.appendChild(display);
 
 const btnCont = document.createElement("div");
@@ -42,7 +41,9 @@ function createElement(elementName, appendElement, className, innerText) {
   const element = document.createElement(elementName);
   element.innerText = innerText;
   element.className = className;
-
+  if (innerText === "AC") {
+    element.style.backgroundColor = "#961616";
+  }
   element.onclick = () => {
     if (innerText === "+") {
       display.value += " " + innerText + " ";
@@ -59,27 +60,26 @@ function createElement(elementName, appendElement, className, innerText) {
     } else if (innerText === ")") {
       display.value += " " + innerText + " ";
     } else if (innerText === "=") {
-      eq = display.value.split(" ");
-      switch (eq[1]) {
-        case "+":
-          display.value = Number(eq[0]) + Number(eq[2]);
-          break;
-        case "-":
-          display.value = Number(eq[0]) - Number(eq[2]);
-          break;
-        case "*":
-          display.value = (Number(eq[0]) * Number(eq[2])).toFixed(2);
-          break;
-        case "/":
-          display.value = (Number(eq[0]) / Number(eq[2])).toFixed(2);
-          break;
-        case "%":
-          display.value = (Number(eq[0]) * (Number(eq[2]) / 100)).toFixed(2);
-          break;
-      }
-
-      if (eq[0] === "(") {
-      }
+      // eq = display.value.split(" ");
+      eq = eval(display.value);
+      // switch (eq[1]) {
+      //   case "+":
+      //     display.value = Number(eq[0]) + Number(eq[2]);
+      //     break;
+      //   case "-":
+      //     display.value = Number(eq[0]) - Number(eq[2]);
+      //     break;
+      //   case "*":
+      //     display.value = (Number(eq[0]) * Number(eq[2])).toFixed(2);
+      //     break;
+      //   case "/":
+      //     display.value = (Number(eq[0]) / Number(eq[2])).toFixed(2);
+      //     break;
+      //   case "%":
+      //     display.value = (Number(eq[0]) * (Number(eq[2]) / 100)).toFixed(2);
+      //     break;
+      // }
+      display.value = eq;
     } else if (innerText === "AC") {
       display.value = null;
     } else {
