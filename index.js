@@ -45,23 +45,19 @@ function createElement(elementName, appendElement, className, innerText) {
     element.style.backgroundColor = "#961616";
   }
   element.onclick = () => {
-    if (innerText === "+") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === "-") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === "/") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === "*") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === "%") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === "(") {
-      display.value += " " + innerText + " ";
-    } else if (innerText === ")") {
+    if (
+      innerText === "+" ||
+      innerText === "-" ||
+      innerText === "/" ||
+      innerText === "*" ||
+      innerText === "%" ||
+      innerText === "(" ||
+      innerText === ")"
+    ) {
       display.value += " " + innerText + " ";
     } else if (innerText === "=") {
-      // eq = display.value.split(" ");
-      eq = eval(display.value);
+      eq = display.value.split(" ");
+      // eq = eval(display.value);
       // switch (eq[1]) {
       //   case "+":
       //     display.value = Number(eq[0]) + Number(eq[2]);
@@ -79,7 +75,35 @@ function createElement(elementName, appendElement, className, innerText) {
       //     display.value = (Number(eq[0]) * (Number(eq[2]) / 100)).toFixed(2);
       //     break;
       // }
-      display.value = eq;
+      // display.value = eq;
+      console.log(eq);
+      let st = [];
+      let num1 = 0;
+      let num2 = 0;
+
+      for (let i = 0; i < eq.length; i++) {
+        if (eq[i] === "-") {
+          // display.value = (Number(eq[i - 1]) - Number(eq[i + 1])).toFixed(2);
+          num2 = eq[i + 1];
+          num1 = st.pop();
+          display.value = num1 - num2;
+          st.push(display.value);
+          console.log(num1, num2);
+        } else if (eq[i] === "+") {
+          display.value = (Number(eq[i - 1]) + Number(eq[i + 1])).toFixed(2);
+        } else if (eq[i] === "*") {
+          display.value = (Number(eq[i - 1]) * Number(eq[i + 1])).toFixed(2);
+        } else if (eq[i] === "/") {
+          display.value = (Number(eq[i - 1]) / Number(eq[i + 1])).toFixed(2);
+        } else if (eq[i] === "%") {
+          display.value = (
+            (Number(eq[i - 1]) * Number(eq[i + 1])) /
+            100
+          ).toFixed(2);
+        } else {
+          st.push(eq[i]);
+        }
+      }
     } else if (innerText === "AC") {
       display.value = null;
     } else {
