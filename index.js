@@ -45,18 +45,19 @@ function createElement(elementName, appendElement, className, innerText) {
     element.style.backgroundColor = "#961616";
   }
   element.onclick = () => {
-    if (
-      innerText === "+" ||
-      innerText === "-" ||
-      innerText === "/" ||
-      innerText === "*" ||
-      innerText === "%" ||
-      innerText === "(" ||
-      innerText === ")"
-    ) {
+    if ("+-/*%()".includes(innerText)) {
       display.value += " " + innerText + " ";
     } else if (innerText === "=") {
-      display.value = result(display.value);
+      if (display.value.includes("(") && display.value.includes(")")) {
+        let left = display.value.indexOf("(");
+        let right = display.value.indexOf(")");
+
+        let inBraket = display.value.split(left, right);
+        let resInBraket = evaluate(inBraket);
+        console.log("inside braket: ", inBraket, left, right);
+      } else {
+        display.value = eval(display.value);
+      }
     } else if (innerText === "AC") {
       display.value = "";
     } else {
@@ -70,21 +71,17 @@ for (let i = 0; i < array.length; i++) {
   createElement("button", btnCont, "btn", array[i]);
 }
 
-function result(equation) {
+function evaluate(equation) {
   let stack = [];
   let operations = [];
   let temp = equation.split(" ");
 
   console.log("temp: ", temp);
   for (let i = 0; i < temp.length; i++) {
-    if (
-      temp[i] === "-" ||
-      temp[i] === "+" ||
-      temp[i] === "*" ||
-      temp[i] === "/" ||
-      temp[i] === "%"
-    ) {
+    if ("+-/*%()".includes(temp[i])) {
       operations.push(temp[i]);
+    } else if (temp[i] === "") {
+      continue;
     } else {
       stack.push(temp[i]);
     }
@@ -118,7 +115,6 @@ function result(equation) {
   console.log("* number:", stack);
 
   stackReversed = stack.reverse();
-
   operationsReversed = operations.reverse();
 
   console.log("reversed op:", operationsReversed);
@@ -138,28 +134,11 @@ function result(equation) {
         console.log(stackReversed);
         break;
       case "-":
-        // if (num2 < 0) {
-        //   res = Number(num2) - Number(num1);
-        // } else {
-        //   res = Number(num1) - Number(num2);
-        // }
         res = Number(num2) - Number(num1);
         console.log(res);
         stackReversed.push(res);
         console.log("pushed", stackReversed);
         break;
-      // case "*":
-      //   res = (Number(num2) * Number(num1)).toFixed(2);
-      //   console.log(res);
-      //   stackReversed.push(res);
-      //   console.log(stackReversed);
-      //   break;
-      // case "/":
-      //   res = (Number(num2) / Number(num1)).toFixed(2);
-      //   console.log(res);
-      //   stackReversed.push(res);
-      //   console.log(stackReversed);
-      //   break;
       case "%":
         res = ((Number(num1) * Number(num2)) / 100).toFixed(2);
         console.log(res);
